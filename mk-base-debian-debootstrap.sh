@@ -20,6 +20,7 @@ TARGET_ROOTFS_DIR=init
 DEBIAN_SOFTWARE_SOURCE="http://ftp2.cn.debian.org/debian"
 ARCH=armhf
 NODEJS=node-v8.11.4-linux-armv7l
+DOCKER=docker-18.03.1-ce
 
 mkdir ${TARGET_ROOTFS_DIR}
 
@@ -33,10 +34,20 @@ mkdir -p ${TARGET_ROOTFS_DIR}/system/etc/firmware/
 cp dphotos-firmware/* ${TARGET_ROOTFS_DIR}/system/etc/firmware/
 
 # nodejs
-cp ${NODEJS}.tar.gz ${TARGET_ROOTFS_DIR}/tmp/
+cp dphotos-software/${NODEJS}.tar.gz ${TARGET_ROOTFS_DIR}/tmp/
+# docker
+cp dphotos-software/${DOCKER}.tgz ${TARGET_ROOTFS_DIR}/tmp/
+
+# 配置文件
+cp -r dphotos-config ${TARGET_ROOTFS_DIR}/tmp/
 
 # 安装系统需要的软件
 cat <<EOF | sudo chroot ${TARGET_ROOTFS_DIR}
+
+# 配置文件放到对应的位置
+mv /tmp/dphotos-config/* /
+systemctl enable docker.service
+
 
 # 安装基础软件
 apt-get install psmisc rfkill
@@ -44,6 +55,10 @@ apt-get install psmisc rfkill
 # 安装nodejs
 tar zxf ${TARGET_ROOTFS_DIR}/tmp/${NODEJS}.tar.gz
 mv ${TARGET_ROOTFS_DIR}/tmp/${NODEJS}/* /usr/local/
+
+# 安装docker
+tar zxf ${TARGET_ROOTFS_DIR}/tmp/${DOCKER}.tgz
+mv ${TARGET_ROOTFS_DIR}/tmp/docker/* /usr/local/bin/
 
 # 必须要安装xserver-xorg,否则xinit没法启动 xinit chromium --no-sandbox 
 apt-get install xinit xserver-xorg
