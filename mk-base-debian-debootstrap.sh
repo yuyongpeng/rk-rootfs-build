@@ -45,7 +45,7 @@ cp -r dphotos-config ${TARGET_ROOTFS_DIR}/tmp/
 cat <<EOF | sudo chroot ${TARGET_ROOTFS_DIR}
 
 # 配置文件放到对应的位置
-mv /tmp/dphotos-config/* /
+cp -r /tmp/dphotos-config/* /
 systemctl enable docker.service
 
 
@@ -53,12 +53,12 @@ systemctl enable docker.service
 apt-get install psmisc rfkill
 
 # 安装nodejs
-tar zxf ${TARGET_ROOTFS_DIR}/tmp/${NODEJS}.tar.gz
-mv ${TARGET_ROOTFS_DIR}/tmp/${NODEJS}/* /usr/local/
+tar zxf /tmp/${NODEJS}.tar.gz -C /tmp/
+mv /tmp/${NODEJS}/* /usr/local/ -C /tmp/
 
 # 安装docker
-tar zxf ${TARGET_ROOTFS_DIR}/tmp/${DOCKER}.tgz
-mv ${TARGET_ROOTFS_DIR}/tmp/docker/* /usr/local/bin/
+tar zxf /tmp/${DOCKER}.tgz -C /tmp/
+mv /tmp/docker/* /usr/local/bin/
 
 # 必须要安装xserver-xorg,否则xinit没法启动 xinit chromium --no-sandbox 
 apt-get install xinit xserver-xorg
