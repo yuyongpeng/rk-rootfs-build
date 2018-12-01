@@ -19,6 +19,8 @@ sudo apt-get install debian-archive-keyring
 TARGET_ROOTFS_DIR=init
 DEBIAN_SOFTWARE_SOURCE="http://ftp2.cn.debian.org/debian"
 ARCH=armhf
+NODEJS=node-v8.11.4-linux-armv7l
+
 mkdir ${TARGET_ROOTFS_DIR}
 
 # 安装 Debian rootfs
@@ -30,11 +32,18 @@ sudo DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true LC_ALL=C LA
 mkdir -p ${TARGET_ROOTFS_DIR}/system/etc/firmware/
 cp dphotos-firmware/* ${TARGET_ROOTFS_DIR}/system/etc/firmware/
 
+# nodejs
+cp ${NODEJS}.tar.gz ${TARGET_ROOTFS_DIR}/tmp/
+
 # 安装系统需要的软件
 cat <<EOF | sudo chroot ${TARGET_ROOTFS_DIR}
 
 # 安装基础软件
 apt-get install psmisc rfkill
+
+# 安装nodejs
+tar zxf ${TARGET_ROOTFS_DIR}/tmp/${NODEJS}.tar.gz
+mv ${TARGET_ROOTFS_DIR}/tmp/${NODEJS}/* /usr/local/
 
 # 必须要安装xserver-xorg,否则xinit没法启动 xinit chromium --no-sandbox 
 apt-get install xinit xserver-xorg
