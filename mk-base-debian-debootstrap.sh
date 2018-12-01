@@ -48,3 +48,6 @@ wpa_passphrase hard-chain-6G hard-chain2017 > /etc/wpa_supplicant/wpa.conf
 # /sbin/wpa_supplicant -i wlan0 -Dnl80211 -c /etc/wpa_supplicant/wpa.conf -C /var/run/wpa_supplicant -P /var/run/wpa.id -P /var/run/wpa.id &
 
 EOF
+# 压缩备份
+rm -rf debian-init-rootfs.tar.gz
+tar zcf debian-init-rootfs.tar.gz ./${TARGET_ROOTFS_DIR}
