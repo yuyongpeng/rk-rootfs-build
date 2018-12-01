@@ -40,7 +40,7 @@ cp dphotos-software/${DOCKER}.tgz ${TARGET_ROOTFS_DIR}/tmp/
 
 # 配置文件
 cp -r dphotos-config ${TARGET_ROOTFS_DIR}/tmp/
-
+sudo mount -o bind /dev $TARGET_ROOTFS_DIR/dev
 # 安装系统需要的软件
 cat <<EOF | sudo chroot ${TARGET_ROOTFS_DIR}
 
@@ -74,6 +74,8 @@ wpa_passphrase hard-chain-6G hard-chain2017 > /etc/wpa_supplicant/wpa.conf
 rm -rf /tmp/*
 
 EOF
+sudo umount $TARGET_ROOTFS_DIR/dev
+
 # 压缩备份
 rm -rf debian-init-rootfs.tar.gz
 tar zcf debian-init-rootfs.tar.gz ./${TARGET_ROOTFS_DIR}
