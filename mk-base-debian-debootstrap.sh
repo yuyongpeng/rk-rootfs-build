@@ -48,17 +48,16 @@ cat <<EOF | sudo chroot ${TARGET_ROOTFS_DIR}
 cp -r /tmp/dphotos-config/* /
 systemctl enable docker.service
 
-
 # 安装基础软件
 apt-get install psmisc rfkill
 
 # 安装nodejs
 tar zxf /tmp/${NODEJS}.tar.gz -C /tmp/
-mv /tmp/${NODEJS}/* /usr/local/ -C /tmp/
+cp -r /tmp/${NODEJS}/* /usr/local/ -C /tmp/
 
 # 安装docker
 tar zxf /tmp/${DOCKER}.tgz -C /tmp/
-mv /tmp/docker/* /usr/local/bin/
+cp -r /tmp/docker/* /usr/local/bin/
 
 # 必须要安装xserver-xorg,否则xinit没法启动 xinit chromium --no-sandbox 
 apt-get install xinit xserver-xorg
@@ -70,6 +69,9 @@ apt-get install bluez
 apt-get install wpasupplicant
 wpa_passphrase hard-chain-6G hard-chain2017 > /etc/wpa_supplicant/wpa.conf
 # /sbin/wpa_supplicant -i wlan0 -Dnl80211 -c /etc/wpa_supplicant/wpa.conf -C /var/run/wpa_supplicant -P /var/run/wpa.id -P /var/run/wpa.id &
+
+# 删除缓存文件
+rm -rf /tmp/*
 
 EOF
 # 压缩备份
