@@ -6,7 +6,7 @@ After=resize-helper.service
 
 [Service]
 Type=simple
-ExecStart=/etc/init.d/rockchip.sh
+ExecStart=/etc/init.d/rockchip.sh rk3288
 
 [Install]
 WantedBy=multi-user.target
