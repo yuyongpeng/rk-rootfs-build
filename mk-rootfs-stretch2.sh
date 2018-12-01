@@ -33,6 +33,12 @@ if [ "$ARCH" == "armhf"  ]; then
     sudo cp overlay-firmware/usr/bin/rk_wifi_init_32 $TARGET_ROOTFS_DIR/usr/bin/rk_wifi_init
 fi
 
+# nodejs
+nodejs_file=node-v8.11.4-linux-armv7l
+sudo tar -xpf node/$nodejs_file.tar.gz
+mv node/$nodejs_file/* $TARGET_ROOTFS_DIR/usr/local/
+
+
 # bt,wifi,audio firmware
 sudo mkdir -p $TARGET_ROOTFS_DIR/system/lib/modules/
 sudo find ../kernel/drivers/net/wireless/rockchip_wlan/*  -name "*.ko" | \
