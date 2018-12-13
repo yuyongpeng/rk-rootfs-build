@@ -2,7 +2,7 @@
 
 TARGET_ROOTFS_DIR=./init
 MOUNTPOINT=./rootfs
-ROOTFSIMAGE=linaro-rootfs.img
+ROOTFSIMAGE=debian-rootfs.img
 OUT=../out
 
 echo Making rootfs!
