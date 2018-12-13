@@ -11,7 +11,7 @@ if [ ! $VERSION ]; then
 fi
 
 if [ ! -e linaro-stretch-alip-*.tar.gz ]; then
-	echo "\033[36m Run mk-base-debian-debootstrap.sh first \033[0m"
+	echo -e "\033[36m Run mk-base-debian-debootstrap.sh first \033[0m"
 fi
 
 finish() {
