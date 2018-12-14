@@ -57,7 +57,7 @@ cp -r /tmp/${NODEJS}/* /usr/local/ -C /tmp/
 
 # 安装docker
 tar zxf /tmp/${DOCKER}.tgz -C /tmp/
-cp -r /tmp/docker/* /usr/local/bin/
+cp -r /tmp/docker/* /usr/bin/
 
 # 必须要安装xserver-xorg,否则xinit没法启动 xinit chromium --no-sandbox 
 apt-get install xinit xserver-xorg

@@ -1,0 +1,6 @@
+{
+"insecure-registries":["uhub.service.ucloud.cn"],
+"registry-mirrors": ["http://279aea86.m.daocloud.io", "http://uhub.service.ucloud.cn"],
+"log-driver": "json-file",
+"log-opts": {"max-size": "5m", "max-file": "2"}
+}

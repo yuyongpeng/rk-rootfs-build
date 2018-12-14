@@ -73,6 +73,38 @@ chmod o+x /usr/lib/dbus-1.0/dbus-daemon-launch-helper
 apt-get update
 # apt-get install -y blueman
 
+#-------- 一些必须的软件 -----------
+apt-get install -y wpasupplicant ssh git
+
+apt-get install -y  libgtk3.0-cil-dev libxss-dev libgconf-2-4 libnss3 xinput madplay sox libsox-fmt-all bluez rfkill alsa-utils wireless-tools
+
+
+apt-get -y install pulseaudio
+systemctl --system enable pulseaudio.service
+echo "default-server = /var/run/pulse/native" >> /etc/pulse/client.conf
+echo "autospawn = no" >> /etc/pulse/client.conf
+
+useradd web
+usermod -a -G tty web && usermod -a -G audio web && usermod -a -G video web
+# 把web添加进pulse-access组，以便访问
+usermod -a -G pulse-access web
+usermod -a -G input web && usermod -a -G pulse web
+
+# 去掉命令行登录界面
+sed -i 's/ExecStart/#ExecStart/' /lib/systemd/system/getty@.service
+
+
+# docker 配置
+systemctl --system enable docker.socket
+systemctl enable docker.service
+curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/debian/gpg | apt-key add -
+sudo add-apt-repository "deb [arch=armhf] http://mirrors.aliyun.com/docker-ce/linux/debian stretch stable"
+# 查看有哪些版本
+apt-cache  madison docker-ce
+apt-get install -y docker-ce=18.03.1~ce-0~debian
+
+
+apt-get install -f -y
 #---------------conflict workaround --------------
 apt-get remove -y xserver-xorg-input-evdev
 
@@ -142,6 +174,9 @@ ln -s /usr/lib/arm-linux-gnueabihf/libEGL.so /usr/lib/chromium/libEGL.so
 #---------------Clean-------------- 
 rm -rf /var/lib/apt/lists/*
 rm -rf /usr/bin/qemu-arm-static
+
+# 清理文件系统完成文件系统的制作
+sudo apt-get clean
 
 EOF
 
