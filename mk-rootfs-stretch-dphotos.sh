@@ -1,8 +1,12 @@
 #!/bin/bash -e
 
 # Directory contains the target rootfs
-TARGET_ROOTFS_DIR="init"
-
+if [ ! $TARGET_ROOTFS_DIR ]; then
+  TARGET_ROOTFS_DIR="init"
+fi
+if [ ! RELEASE ]; then
+  RELEASE="stretch"
+fi
 if [ ! $ARCH ]; then
 	ARCH='armhf'
 fi
@@ -10,7 +14,7 @@ if [ ! $VERSION ]; then
 	VERSION="debug"
 fi
 
-if [ ! -e linaro-stretch-alip-*.tar.gz ]; then
+if [ ! -e debian-init-rootfs.tar.gz ]; then
 	echo -e "\033[36m Run mk-base-debian-debootstrap.sh first \033[0m"
 fi
 
@@ -26,18 +30,18 @@ sudo mkdir -p $TARGET_ROOTFS_DIR/packages
 sudo cp -rf packages/$ARCH/* $TARGET_ROOTFS_DIR/packages
 # some configs
 sudo cp -rf overlay/* $TARGET_ROOTFS_DIR/
-if [ "$ARCH" == "armhf"  ]; then
-    sudo cp overlay-firmware/usr/bin/brcm_patchram_plus1_32 $TARGET_ROOTFS_DIR/usr/bin/brcm_patchram_plus1
-    sudo cp overlay-firmware/usr/bin/rk_wifi_init_32 $TARGET_ROOTFS_DIR/usr/bin/rk_wifi_init
-fi
+#if [ "$ARCH" == "armhf"  ]; then
+#    sudo cp overlay-firmware/usr/bin/brcm_patchram_plus1_32 $TARGET_ROOTFS_DIR/usr/bin/brcm_patchram_plus1
+#    sudo cp overlay-firmware/usr/bin/rk_wifi_init_32 $TARGET_ROOTFS_DIR/usr/bin/rk_wifi_init
+#fi
 
 # bt,wifi,audio firmware
-sudo mkdir -p $TARGET_ROOTFS_DIR/system/lib/modules/
-sudo find ../kernel/drivers/net/wireless/rockchip_wlan/*  -name "*.ko" | \
-    xargs -n1 -i sudo cp {} $TARGET_ROOTFS_DIR/system/lib/modules/
+#sudo mkdir -p $TARGET_ROOTFS_DIR/system/lib/modules/
+#sudo find ../kernel/drivers/net/wireless/rockchip_wlan/*  -name "*.ko" | \
+#    xargs -n1 -i sudo cp {} $TARGET_ROOTFS_DIR/system/lib/modules/
 
 # 全部都copy了，是否可以去掉？
-sudo cp -rf overlay-firmware/* $TARGET_ROOTFS_DIR/
+#sudo cp -rf overlay-firmware/* $TARGET_ROOTFS_DIR/
 
 # # adb
 # if [ "$ARCH" == "armhf" ]; then
@@ -100,12 +104,12 @@ sed -i 's/ExecStart/#ExecStart/' /lib/systemd/system/getty@.service
 # docker 配置
 systemctl --system enable docker.socket
 systemctl enable docker.service
-curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/debian/gpg | apt-key add -
-sudo add-apt-repository "deb [arch=armhf] http://mirrors.aliyun.com/docker-ce/linux/debian stretch stable"
+#curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/debian/gpg | apt-key add -
+#sudo add-apt-repository "deb [arch=armhf] http://mirrors.aliyun.com/docker-ce/linux/debian stretch stable"
 # 查看有哪些版本
-apt-cache  madison docker-ce
+#apt-cache  madison docker-ce
 # 安装完成后，会占用180MB的空间，最好使用已编译好的
-apt-get install -y docker-ce=18.03.1~ce-0~debian
+#apt-get install -y docker-ce=18.03.1~ce-0~debian
 
 
 apt-get install -f -y
@@ -121,6 +125,8 @@ apt-get install -f -y
 
 #---------------Mali[rk3288]--------------
 echo -e "\033[36m Setup Mali.................... \033[0m"
+# cat /sys/devices/platform/*gpu/gpuinfo
+# Mali-T76x 4 cores r1p0 0x0750
 dpkg -i  /packages/libmali/libmali-rk-midgard-t76x-r14p0-r1p0_*.deb
 #dpkg -i  /packages/libmali/libmali-rk-midgard-t76x-r14p0-r0p0_*.deb
 apt-get install -f -y
@@ -151,8 +157,8 @@ apt-get install -f -y
 #---------------Others--------------
 
 #----------chromium------
-dpkg -i  /packages/others/chromium/*
-sudo apt-mark hold chromium
+# dpkg -i  /packages/others/chromium/*
+# sudo apt-mark hold chromium
 #---------FFmpeg---------
 # apt-get install -y libsdl2-2.0-0 libcdio-paranoia1 libjs-bootstrap libjs-jquery
 # dpkg -i  /packages/others/ffmpeg/*
@@ -172,8 +178,8 @@ systemctl mask NetworkManager-wait-online.service
 rm /lib/systemd/system/wpa_supplicant@.service
 
 #---------------get accelerated back for chromium v61--------------
-ln -s /usr/lib/arm-linux-gnueabihf/libGLESv2.so /usr/lib/chromium/libGLESv2.so
-ln -s /usr/lib/arm-linux-gnueabihf/libEGL.so /usr/lib/chromium/libEGL.so
+#ln -s /usr/lib/arm-linux-gnueabihf/libGLESv2.so /usr/lib/chromium/libGLESv2.so
+#ln -s /usr/lib/arm-linux-gnueabihf/libEGL.so /usr/lib/chromium/libEGL.so
 
 #---------------Clean-------------- 
 rm -rf /var/lib/apt/lists/*
@@ -181,6 +187,7 @@ rm -rf /usr/bin/qemu-arm-static
 
 # 清理文件系统完成文件系统的制作
 sudo apt-get clean
+rm -rf /packages
 
 EOF
 

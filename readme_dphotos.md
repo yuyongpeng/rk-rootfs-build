@@ -6,17 +6,13 @@ for rockchip platform.
 * Debian Stretch (X11)
 
 ## Usage for 32bit Debian
-Building a base debian system by ubuntu-build-service from linaro.
+Building a base debian system by debootstrap
 
     sudo mk-base-debian-debootstrap.sh
 
 Building the rk-debian rootfs:
 
-	RELEASE=stretch ARCH=armhf ./mk-rootfs-stretch-dphotos.sh
-
-Building the rk-debain rootfs with debug:
-
-	VERSION=debug ARCH=armhf ./mk-rootfs-stretch-dphotos.sh
+	TARGET_ROOTFS_DIR=init RELEASE=stretch ARCH=armhf ./mk-rootfs-stretch-dphotos.sh
 
 Creating the ext4 image(linaro-rootfs.img):
 
