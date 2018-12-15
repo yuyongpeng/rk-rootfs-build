@@ -194,7 +194,8 @@ rm /lib/systemd/system/wpa_supplicant@.service
 #ln -s /usr/lib/arm-linux-gnueabihf/libGLESv2.so /usr/lib/chromium/libGLESv2.so
 #ln -s /usr/lib/arm-linux-gnueabihf/libEGL.so /usr/lib/chromium/libEGL.so
 
-#---------------Clean-------------- 
+#---------------Clean--------------
+echo -e "\033[36m ---------------Clean--------------  \033[0m"
 rm -rf /var/lib/apt/lists/*
 # rm -rf /usr/bin/qemu-arm-static
 
