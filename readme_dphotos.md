@@ -16,7 +16,7 @@ Building the rk-debian rootfs:
 
 Creating the ext4 image(linaro-rootfs.img):
 
-	./mk-image-dphotos.sh
+	TARGET_ROOTFS_DIR=init ./mk-image-dphotos.sh
 ---
 
 ## Cross Compile for ARM Debian
