@@ -85,8 +85,11 @@ apt-get update
 echo -e "\033[36m 安装一些必须的软件   \033[0m"
 apt-get install -y wpasupplicant ssh git
 
-apt-get install -y  libgtk3.0 libxss-dev libgconf-2-4 libnss3 xinput madplay bluez \
+apt-get install -y  libxss-dev libgconf-2-4 libnss3 xinput madplay bluez \
 rfkill alsa-utils wireless-tools mosquitto x11-xserver-utils
+
+echo -e "\033[36m 安装libgtk-3-0  \033[0m"
+apt-get install libgtk-3-0
 
 # 安装混音的软件
 echo -e "\033[36m 安装混音的软件  \033[0m"
