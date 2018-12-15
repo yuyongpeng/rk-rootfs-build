@@ -77,6 +77,8 @@ sudo mount -o bind /dev $TARGET_ROOTFS_DIR/dev
 
 cat <<EOF | sudo chroot $TARGET_ROOTFS_DIR
 
+export LC_ALL=C
+
 chmod o+x /usr/lib/dbus-1.0/dbus-daemon-launch-helper
 apt-get update
 # apt-get install -y blueman
