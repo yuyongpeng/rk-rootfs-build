@@ -49,6 +49,8 @@ cp -r /tmp/dphotos-config/* /
 systemctl enable docker.service
 systemctl enable docker.socket
 
+apt-get update
+
 # 安装基础软件
 apt-get install -y psmisc rfkill
 
