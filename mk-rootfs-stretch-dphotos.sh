@@ -82,9 +82,10 @@ apt-get update
 # apt-get install -y blueman
 
 #-------- 一些必须的软件 -----------
-echo -e "\033[36m 安装一些必须的软件   \033[0m"
+echo -e "\033[36m 安装一些必须的软件111   \033[0m"
 apt-get install -y wpasupplicant ssh git
 
+echo -e "\033[36m 安装一些必须的软件222   \033[0m"
 apt-get install -y  libxss-dev libgconf-2-4 libnss3 xinput madplay bluez \
 rfkill alsa-utils wireless-tools mosquitto x11-xserver-utils
 
