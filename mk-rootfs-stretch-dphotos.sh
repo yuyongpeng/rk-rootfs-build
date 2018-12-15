@@ -90,7 +90,7 @@ apt-get install -y  libxss-dev libgconf-2-4 libnss3 xinput madplay bluez \
 rfkill alsa-utils wireless-tools mosquitto x11-xserver-utils
 
 echo -e "\033[36m   --------------------------  安装libgtk-3-0   --------------------------   \033[0m"
-apt-get install libgtk-3-0
+apt-get install -y libgtk-3-0
 
 # 安装混音的软件
 echo -e "\033[36m   --------------------------  安装混音的软件   --------------------------   \033[0m"
