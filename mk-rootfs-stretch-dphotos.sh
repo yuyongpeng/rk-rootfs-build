@@ -90,7 +90,7 @@ rfkill alsa-utils wireless-tools mosquitto x11-xserver-utils
 
 # 安装混音的软件
 echo -e "\033[36m 安装混音的软件  033[0m"
-apt-get install -y sox libsox-fmt-all b
+apt-get install -y sox libsox-fmt-all
 # 安装声音
 echo -e "\033[36m 安装声音软件 pluseaudio  033[0m"
 apt-get -y install pulseaudio
@@ -192,7 +192,7 @@ rm /lib/systemd/system/wpa_supplicant@.service
 
 #---------------Clean-------------- 
 rm -rf /var/lib/apt/lists/*
-rm -rf /usr/bin/qemu-arm-static
+# rm -rf /usr/bin/qemu-arm-static
 
 # 清理文件系统完成文件系统的制作
 apt-get clean
