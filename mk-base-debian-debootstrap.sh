@@ -1,6 +1,6 @@
 #!/bin/bash
 ###########################
-# 只能在ubuntu环境下使用
+# 只能在ubuntu 16.04环境下使用
 # auth: 俞永鹏
 ###########################
 
@@ -50,24 +50,24 @@ systemctl enable docker.service
 systemctl enable docker.socket
 
 # 安装基础软件
-apt-get install psmisc rfkill
+apt-get install -y psmisc rfkill
 
 # 安装nodejs
 tar zxf /tmp/${NODEJS}.tar.gz -C /tmp/
-cp -r /tmp/${NODEJS}/* /usr/local/ -C /tmp/
+cp -rf /tmp/${NODEJS}/* /usr/local/
 
 # 安装docker
 tar zxf /tmp/${DOCKER}.tgz -C /tmp/
-cp -r /tmp/docker/* /usr/bin/
+cp -rf /tmp/docker/* /usr/bin/
 
 # 必须要安装xserver-xorg,否则xinit没法启动 xinit chromium --no-sandbox 
-apt-get install xinit xserver-xorg
+apt-get install -y xinit xserver-xorg
 
 # bluez
-apt-get install bluez 
+apt-get install -y bluez
 
 # wifi wpasupplicant
-apt-get install wpasupplicant
+apt-get install -y wpasupplicant
 wpa_passphrase hard-chain-6G hard-chain2017 > /etc/wpa_supplicant/wpa.conf
 # /sbin/wpa_supplicant -i wlan0 -Dnl80211 -c /etc/wpa_supplicant/wpa.conf -C /var/run/wpa_supplicant -P /var/run/wpa.id -P /var/run/wpa.id &
 
