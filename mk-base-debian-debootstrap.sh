@@ -47,6 +47,7 @@ cat <<EOF | sudo chroot ${TARGET_ROOTFS_DIR}
 # 配置文件放到对应的位置
 cp -r /tmp/dphotos-config/* /
 systemctl enable docker.service
+systemctl enable docker.socket
 
 # 安装基础软件
 apt-get install psmisc rfkill

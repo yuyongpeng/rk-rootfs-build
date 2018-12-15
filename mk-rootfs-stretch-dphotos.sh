@@ -76,10 +76,12 @@ apt-get update
 #-------- 一些必须的软件 -----------
 apt-get install -y wpasupplicant ssh git
 
-apt-get install -y  libgtk3.0-cil-dev libxss-dev libgconf-2-4 libnss3 xinput madplay sox libsox-fmt-all bluez \
+apt-get install -y  libgtk3.0-cil-dev libxss-dev libgconf-2-4 libnss3 xinput madplay luez \
 rfkill alsa-utils wireless-tools mosquitto x11-xserver-utils
 
-
+# 安装混音的软件
+apt-get install -y sox libsox-fmt-all b
+# 安装声音
 apt-get -y install pulseaudio
 systemctl --system enable pulseaudio.service
 echo "default-server = /var/run/pulse/native" >> /etc/pulse/client.conf
