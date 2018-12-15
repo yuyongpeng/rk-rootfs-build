@@ -24,6 +24,10 @@ finish() {
 }
 trap finish ERR
 
+# 配置文件
+cp -rf dphotos-config/* ${TARGET_ROOTFS_DIR}/
+
+
 echo -e "\033[36m packages 存放的是deb的安装包 \033[0m"
 echo -e "\033[36m Copy overlay to rootfs \033[0m"
 sudo mkdir -p $TARGET_ROOTFS_DIR/packages
@@ -81,7 +85,7 @@ apt-get update
 echo -e "\033[36m 安装一些必须的软件   033[0m"
 apt-get install -y wpasupplicant ssh git
 
-apt-get install -y  libgtk3.0-cil-dev libxss-dev libgconf-2-4 libnss3 xinput madplay luez \
+apt-get install -y  libgtk3.0-cil-dev libxss-dev libgconf-2-4 libnss3 xinput madplay bluez \
 rfkill alsa-utils wireless-tools mosquitto x11-xserver-utils
 
 # 安装混音的软件
