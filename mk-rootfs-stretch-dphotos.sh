@@ -134,7 +134,7 @@ apt-get remove -y xserver-xorg-input-evdev
 apt-get install -y libxfont1 libinput-bin libinput10 libwacom-common libwacom2 libunwind8 xserver-xorg-input-libinput
 
 #---------------Xserver--------------
-echo -e "\033[36m Setup Xserver.................... \033[0m"
+echo -e "\033[36m Setup Xserver.  最好chroot 后手动安装................... \033[0m"
 dpkg -i  /packages/xserver/*
 apt-get install -f -y
 
