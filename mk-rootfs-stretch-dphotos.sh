@@ -78,14 +78,17 @@ apt-get update
 # apt-get install -y blueman
 
 #-------- 一些必须的软件 -----------
+echo -e "\033[36m 安装一些必须的软件   033[0m"
 apt-get install -y wpasupplicant ssh git
 
 apt-get install -y  libgtk3.0-cil-dev libxss-dev libgconf-2-4 libnss3 xinput madplay luez \
 rfkill alsa-utils wireless-tools mosquitto x11-xserver-utils
 
 # 安装混音的软件
+echo -e "\033[36m 安装混音的软件  033[0m"
 apt-get install -y sox libsox-fmt-all b
 # 安装声音
+echo -e "\033[36m 安装声音软件 pluseaudio  033[0m"
 apt-get -y install pulseaudio
 systemctl --system enable pulseaudio.service
 echo "default-server = /var/run/pulse/native" >> /etc/pulse/client.conf
@@ -98,10 +101,12 @@ usermod -a -G pulse-access web
 usermod -a -G input web && usermod -a -G pulse web
 
 # 去掉命令行登录界面
+echo -e "\033[36m 去掉命令行登录界面  033[0m"
 sed -i 's/ExecStart/#ExecStart/' /lib/systemd/system/getty@.service
 
 
 # docker 配置
+echo -e "\033[36m docker配置  033[0m"
 systemctl --system enable docker.socket
 systemctl enable docker.service
 #curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/debian/gpg | apt-key add -
