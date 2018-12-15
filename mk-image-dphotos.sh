@@ -1,14 +1,14 @@
 #!/bin/bash -e
 
-TARGET_ROOTFS_DIR=./init
+#TARGET_ROOTFS_DIR=./init
 MOUNTPOINT=./rootfs
 ROOTFSIMAGE=debian-rootfs.img
 OUT=../out
 
 echo Making rootfs!
 
-if [ -e ${TARGET_ROOTFS_DIR} ]; then
-    ${TARGET_ROOTFS_DIR} = "init"
+if [ ! ${TARGET_ROOTFS_DIR} ]; then
+    TARGET_ROOTFS_DIR = "init"
 fi
 
 if [ -e ${ROOTFSIMAGE} ]; then 
