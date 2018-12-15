@@ -191,7 +191,7 @@ rm -rf /var/lib/apt/lists/*
 rm -rf /usr/bin/qemu-arm-static
 
 # 清理文件系统完成文件系统的制作
-sudo apt-get clean
+apt-get clean
 rm -rf /packages
 
 EOF
