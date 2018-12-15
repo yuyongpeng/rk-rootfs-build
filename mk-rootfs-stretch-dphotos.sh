@@ -76,7 +76,8 @@ apt-get update
 #-------- 一些必须的软件 -----------
 apt-get install -y wpasupplicant ssh git
 
-apt-get install -y  libgtk3.0-cil-dev libxss-dev libgconf-2-4 libnss3 xinput madplay sox libsox-fmt-all bluez rfkill alsa-utils wireless-tools
+apt-get install -y  libgtk3.0-cil-dev libxss-dev libgconf-2-4 libnss3 xinput madplay sox libsox-fmt-all bluez \
+rfkill alsa-utils wireless-tools mosquitto x11-xserver-utils
 
 
 apt-get -y install pulseaudio
@@ -101,6 +102,7 @@ curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/debian/gpg | apt-key add -
 sudo add-apt-repository "deb [arch=armhf] http://mirrors.aliyun.com/docker-ce/linux/debian stretch stable"
 # 查看有哪些版本
 apt-cache  madison docker-ce
+# 安装完成后，会占用180MB的空间，最好使用已编译好的
 apt-get install -y docker-ce=18.03.1~ce-0~debian
 
 
@@ -118,7 +120,7 @@ apt-get install -f -y
 #---------------Mali[rk3288]--------------
 echo -e "\033[36m Setup Mali.................... \033[0m"
 dpkg -i  /packages/libmali/libmali-rk-midgard-t76x-r14p0-r1p0_*.deb
-dpkg -i  /packages/libmali/libmali-rk-midgard-t76x-r14p0-r0p0_*.deb
+#dpkg -i  /packages/libmali/libmali-rk-midgard-t76x-r14p0-r0p0_*.deb
 apt-get install -f -y
 
 #---------------Video--------------
