@@ -18,7 +18,10 @@ sudo apt-get install debian-archive-keyring
 # 初始化安装Debian系统
 TARGET_ROOTFS_DIR=init
 DEBIAN_SOFTWARE_SOURCE="http://ftp2.cn.debian.org/debian"
-ARCH=armhf
+if [ ! ${ARCH} ]; then
+    ARCH = "armhf"
+    ARCH=arm64
+fi
 NODEJS=node-v8.11.4-linux-armv7l
 DOCKER=docker-18.03.1-ce
 
@@ -61,6 +64,7 @@ cp -rf /tmp/${NODEJS}/* /usr/local/
 # 安装docker
 tar zxf /tmp/${DOCKER}.tgz -C /tmp/
 cp -rf /tmp/docker/* /usr/bin/
+useradd docker
 
 # 必须要安装xserver-xorg,否则xinit没法启动 xinit chromium --no-sandbox 
 apt-get install -y xinit xserver-xorg
