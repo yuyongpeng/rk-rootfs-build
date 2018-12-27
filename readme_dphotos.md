@@ -8,7 +8,8 @@ for rockchip platform.
 ## Usage for 32bit Debian
 Building a base debian system by debootstrap
 
-    sudo mk-base-debian-debootstrap.sh
+    sudo ARCH=arm64 mk-base-debian-debootstrap.sh
+    sudo ARCH=armhf mk-base-debian-debootstrap.sh
 
 Building the rk-debian rootfs:
 
