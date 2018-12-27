@@ -8,7 +8,7 @@ OUT=../out
 echo Making rootfs!
 
 if [ ! ${TARGET_ROOTFS_DIR} ]; then
-    TARGET_ROOTFS_DIR = "init"
+    TARGET_ROOTFS_DIR="init"
 fi
 
 if [ -e ${ROOTFSIMAGE} ]; then 
